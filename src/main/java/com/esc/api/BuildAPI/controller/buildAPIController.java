@@ -1,6 +1,6 @@
 package com.esc.api.BuildAPI.controller;
 
-import com.esc.api.BuildAPI.repository.UserRepository;
+import com.esc.api.BuildAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/users")
 public class buildAPIController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserRepository userRepository;
+    public buildAPIController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> createUser(@RequestBody User user) {
-        userRepository.save(user);
+        userService.saveUser(user);
         return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
     }
 }
