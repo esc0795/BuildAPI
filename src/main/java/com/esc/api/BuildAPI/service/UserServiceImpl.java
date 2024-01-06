@@ -1,5 +1,4 @@
 package com.esc.api.BuildAPI.service;
 
-public class UserService {
-
+public class UserServiceImpl {
 }

@@ -17,7 +17,7 @@ public class buildAPIController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<String> createUser(@RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
