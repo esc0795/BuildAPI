@@ -1,5 +1,6 @@
 package com.esc.api.BuildAPI.service;
 
+import com.esc.api.BuildAPI.exception.CustomException;
 import com.esc.api.BuildAPI.model.User;
 import com.esc.api.BuildAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new CustomException("An error occurred while saving users.");
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users;
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException("An error occurred while fetching users.");
+        }
     }
 }
