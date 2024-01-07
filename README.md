@@ -1,2 +1,3 @@
 # BuildAPI
- This API was created for testing purpose.
+ This API Rest was created for testing purpose. Using spring boot.
+ 
