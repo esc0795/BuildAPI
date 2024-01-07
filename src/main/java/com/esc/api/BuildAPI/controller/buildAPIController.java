@@ -1,16 +1,34 @@
 package com.esc.api.BuildAPI.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.esc.api.BuildAPI.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import com.esc.api.BuildAPI.model.User;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RestController("/beta")
-public class buildAPIController {
+import java.util.List;
 
-    @GetMapping("/getRequest")
-    public String getRequest() {
-        return "Test";
+@RestController
+@RequestMapping("/api/users")
+public class BuildAPIController {
+
+    private final UserService userService;
+
+    @Autowired
+    public BuildAPIController(UserService userService) {
+        this.userService = userService;
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }
