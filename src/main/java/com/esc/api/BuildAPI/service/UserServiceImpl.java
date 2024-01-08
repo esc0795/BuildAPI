@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         try {
+            user.setId(null);
             userRepository.save(user);
         } catch(Exception e) {
             e.printStackTrace();
@@ -35,6 +36,36 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new CustomException("An error occurred while fetching users.");
+        }
+    }
+
+    @Override
+    public User getUserById(Long id){
+        try{
+            return userRepository.findById(id).orElse(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException("An error occurred while searching users.");
+        }
+    }
+
+    @Override
+    public void updateUser(User updatedUser) {
+        try {
+            userRepository.save(updatedUser);
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw new CustomException("An error occurred while saving users.");
+        }
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        try{
+            userRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException("An error occurred while deleting user.");
         }
     }
 }
