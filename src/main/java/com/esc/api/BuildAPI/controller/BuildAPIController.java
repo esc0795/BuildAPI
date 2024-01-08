@@ -20,7 +20,7 @@ public class BuildAPIController {
         this.userService = userService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addUser")
     public ResponseEntity<String> createUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
@@ -30,5 +30,37 @@ public class BuildAPIController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.FOUND);
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<String> createUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User existingUser = userService.getUserById(id);
+
+        if(existingUser != null) {
+            existingUser.setUser_name(updatedUser.getUser_name());
+            existingUser.setEmail(updatedUser.getEmail());
+            userService.updateUser(existingUser);
+            return new ResponseEntity<>("User successfully updated", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        User existingUser = userService.getUserById(id);
+
+        if(existingUser != null) {
+            userService.deleteUser(id);
+            return new ResponseEntity<>("User successfully deleted", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
     }
 }
