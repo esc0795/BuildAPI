@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         try {
+            user.setId(null);
             userRepository.save(user);
         } catch(Exception e) {
             e.printStackTrace();
