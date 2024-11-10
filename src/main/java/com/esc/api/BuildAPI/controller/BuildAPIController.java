@@ -48,7 +48,8 @@ public class BuildAPIController {
             existingUser.setEmail(userRequestDto.getEmail());
             existingUser.setUser_name(userRequestDto.getUser_name());
             User updatedUser = userService.updateUser(existingUser);
-            UserResponseDTO responseDTO = new UserResponseDTO(updatedUser.getId(), updatedUser.getUser_name(), updatedUser.getEmail());
+            UserResponseDTO responseDTO = new UserResponseDTO(updatedUser.getId(), updatedUser.getUser_name(),
+                    updatedUser.getEmail());
             return ResponseEntity.ok(responseDTO);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
