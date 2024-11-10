@@ -17,13 +17,9 @@ public class User {
 
     private String email;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getUser_name() {
         return user_name;

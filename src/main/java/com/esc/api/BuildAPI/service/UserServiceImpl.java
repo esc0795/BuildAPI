@@ -2,6 +2,7 @@ package com.esc.api.BuildAPI.service;
 
 import com.esc.api.BuildAPI.exception.CustomException;
 import com.esc.api.BuildAPI.model.User;
+import com.esc.api.BuildAPI.model.dto.UserRequestDTO;
 import com.esc.api.BuildAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(UserRequestDTO userRequestDto) {
         try {
-            user.setId(null);
-            userRepository.save(user);
+            User user = new User();
+            user.setUser_name(userRequestDto.getUser_name());
+            user.setEmail(userRequestDto.getEmail());
+            return userRepository.save(user);
         } catch(Exception e) {
             e.printStackTrace();
             throw new CustomException("An error occurred while saving users.");
@@ -50,9 +53,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User updatedUser) {
+    public User updateUser(User user) {
         try {
-            userRepository.save(updatedUser);
+            return userRepository.save(user);
         } catch(Exception e) {
             e.printStackTrace();
             throw new CustomException("An error occurred while saving users.");
