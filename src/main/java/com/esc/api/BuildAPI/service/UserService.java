@@ -1,6 +1,8 @@
 package com.esc.api.BuildAPI.service;
 
 import com.esc.api.BuildAPI.model.User;
+import com.esc.api.BuildAPI.model.dto.UserRequestDTO;
+import com.esc.api.BuildAPI.model.dto.UserResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,13 +10,13 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    void saveUser(User user);
+    User saveUser(UserRequestDTO userRequestDto);
 
     List<User> getAllUsers();
 
     User getUserById(Long id);
 
-    void updateUser(User updatedUser);
+    User updateUser(User user);
 
     void deleteUser(Long id);
 }
