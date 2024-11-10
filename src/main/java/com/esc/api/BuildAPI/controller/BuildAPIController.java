@@ -35,9 +35,14 @@ public class BuildAPIController {
     }
 
     @GetMapping("/getUserById/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 
     @PutMapping("/updateUser/{id}")
