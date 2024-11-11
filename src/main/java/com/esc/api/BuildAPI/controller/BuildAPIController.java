@@ -23,9 +23,9 @@ public class BuildAPIController {
     }
 
     @PostMapping("/addUser")
-    public UserResponseDTO createUser(@RequestBody UserRequestDTO userRequestDto) {
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDto) {
         User user = userService.saveUser(userRequestDto);
-        return new UserResponseDTO(user.getId(), user.getUser_name(), user.getEmail());
+        return ResponseEntity.ok(new UserResponseDTO(user.getId(), user.getUser_name(), user.getEmail()));
     }
 
     @GetMapping("/getAllUsers")
